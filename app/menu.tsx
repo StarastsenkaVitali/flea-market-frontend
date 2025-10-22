@@ -7,7 +7,7 @@ import {
   ShoppingCartOutlined,
   AppstoreOutlined
 } from "@ant-design/icons";
-import { format } from "path";
+import { categories } from "./categories/categories";
 
 export default function Menu(): React.JSX.Element {
   const { user, isLoading } = useUser();
@@ -42,18 +42,12 @@ export default function Menu(): React.JSX.Element {
       key: "categories",
       icon: <AppstoreOutlined />,
       label: <a href="/categories">Categories</a>,
-      children: [
-      { key: '3', label: 'Option 3' },
-      { key: '4', label: 'Option 4' },
-      {
-        key: 'sub1-2',
-        label: 'Submenu',
-        children: [
-          { key: '5', label: 'Option 5' },
-          { key: '6', label: 'Option 6' },
-        ],
-      },
-    ],
+      children: categories.map((category) => {
+        return {
+          key: category,
+          label: <Link href={`/categories/${category}`}>{category}</Link>,
+        };
+      }),
     },
     {
       key: "orders",
